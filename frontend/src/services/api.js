@@ -118,8 +118,12 @@ const shouldPreferOfflineFallback = () => {
   const hasCustomUrl = Boolean(localStorage.getItem(CUSTOM_BACKEND_URL_KEY));
   const hasEnvUrl = Boolean(import.meta.env.VITE_API_URL);
   
+  // Force offline fallback if logged in with a mock token
+  const token = localStorage.getItem(TOKEN_KEY);
+  const isMockSession = token && (token.startsWith('mock-jwt-token-') || token.startsWith('mock-token-'));
+  
   // Prefer instant zero-error fallback on GitHub Pages unless live URL is provided
-  return isGithubPages && !hasCustomUrl && !hasEnvUrl;
+  return (isGithubPages && !hasCustomUrl && !hasEnvUrl) || isMockSession;
 };
 
 const getApiBaseUrl = () => {

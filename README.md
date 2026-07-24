@@ -72,7 +72,7 @@ Add the following Environment Variables under the **Environment** tab:
 
 | Variable Key | Example Value | Description |
 | :--- | :--- | :--- |
-| `PORT` | `5000` | Port for Express server |
+| `PORT` | `5050` | Port for Express server |
 | `MONGO_URI` | `mongodb+srv://user:pass@cluster.mongodb.net/Placementeligibility` | MongoDB Atlas URI |
 | `JWT_SECRET` | `your_secure_jwt_secret_key_2026` | Secret key for JWT signing |
 | `JWT_EXPIRES_IN` | `7d` | Token expiration period |
@@ -93,7 +93,7 @@ VITE_API_URL=https://your-backend-app.onrender.com/api
 cd backend
 npm install
 npm run seed  # Seeds initial opportunities and test users
-npm run dev   # Starts backend server on http://localhost:5000
+npm run dev   # Starts backend server on http://localhost:5050
 ```
 
 ### Frontend Setup:

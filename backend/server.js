@@ -1,9 +1,9 @@
 import app from './app.js';
 import connectDB from './config/db.js';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5050;
 
-// Start Express server immediately so port 5000 is open and responsive to Vite proxy / health checks
+// Start Express server immediately so port 5050 is open and responsive to Vite proxy / health checks
 const server = app.listen(PORT, () => {
   console.log(`Backend server running on http://127.0.0.1:${PORT}`);
 });
