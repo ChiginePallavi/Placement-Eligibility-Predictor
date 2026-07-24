@@ -177,7 +177,10 @@ export const getOpportunities = async (params = {}) => {
 
   try {
     return handleResponse(await apiClient.get('/opportunities', { params }));
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Failed to retrieve opportunities.');
+    }
     return getLocalOpportunitiesResponse(params);
   }
 };
@@ -228,7 +231,10 @@ export const getOpportunityById = async (id) => {
 
   try {
     return handleResponse(await apiClient.get(`/opportunities/${id}`));
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Failed to retrieve opportunity details.');
+    }
     const list = getLocalOpportunities();
     const found = list.find((item) => String(item.id || item._id) === String(id));
     if (found) return { success: true, data: found };
@@ -243,7 +249,10 @@ export const createOpportunity = async (payload) => {
 
   try {
     return handleResponse(await apiClient.post('/opportunities', payload));
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Failed to create opportunity.');
+    }
     return createLocalOpportunity(payload);
   }
 };
@@ -269,7 +278,10 @@ export const updateOpportunity = async (id, payload) => {
 
   try {
     return handleResponse(await apiClient.put(`/opportunities/${id}`, payload));
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Failed to update opportunity.');
+    }
     return updateLocalOpportunity(id, payload);
   }
 };
@@ -295,7 +307,10 @@ export const deleteOpportunity = async (id) => {
 
   try {
     return handleResponse(await apiClient.delete(`/opportunities/${id}`));
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Failed to delete opportunity.');
+    }
     return deleteLocalOpportunity(id);
   }
 };
@@ -336,7 +351,10 @@ export const registerUser = async (payload) => {
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(res.user));
     }
     return res;
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Registration failed.');
+    }
     return registerLocalUser(payload);
   }
 };
@@ -377,7 +395,10 @@ export const loginUser = async (payload) => {
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(res.user));
     }
     return res;
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Invalid email address or password.');
+    }
     return loginLocalUser(payload);
   }
 };
@@ -425,7 +446,10 @@ export const getMe = async () => {
 
   try {
     return handleResponse(await apiClient.get('/auth/me'));
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Failed to retrieve user profile.');
+    }
     const raw = localStorage.getItem(AUTH_STORAGE_KEY);
     if (raw) return { success: true, user: JSON.parse(raw) };
     throw new Error('No active session found.');
@@ -439,7 +463,10 @@ export const changePassword = async (payload) => {
 
   try {
     return handleResponse(await apiClient.put('/auth/change-password', payload));
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Failed to update password.');
+    }
     return { success: true, message: 'Password updated successfully (Demo Mode).' };
   }
 };
@@ -468,7 +495,10 @@ export const updateProfile = async (payload) => {
     return handleResponse(await apiClient.put('/auth/profile', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     }));
-  } catch {
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response.data?.message || 'Failed to update profile.');
+    }
     const raw = localStorage.getItem(AUTH_STORAGE_KEY);
     const current = raw ? JSON.parse(raw) : {};
     const updated = { ...current, ...payload };
