@@ -1,11 +1,12 @@
 import React from 'react'
 import { useOutletContext } from 'react-router-dom'
 import InfoCard from '../../components/common/InfoCard'
+import { getProfileImageUrl } from '../../services/api'
 
 function DashboardProfile(props) {
   const context = useOutletContext() || {}
   const activeUser = props.activeUser || context.activeUser
-  const avatarUrl = activeUser?.profileImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(activeUser?.displayName || activeUser?.name || activeUser?.email || 'User')}`
+  const avatarUrl = getProfileImageUrl(activeUser?.profileImage) || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(activeUser?.displayName || activeUser?.name || activeUser?.email || 'User')}`
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>

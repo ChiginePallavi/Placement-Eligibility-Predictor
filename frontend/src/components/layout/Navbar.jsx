@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import Button from '../common/Button'
 import { authNavLinks, guestNavLinks } from '../../config/navigation'
+import { getProfileImageUrl } from '../../services/api'
 import './Navbar.css'
 
 function Navbar({ isLoggedIn, onLogout, theme, onToggleTheme, activeUser }) {
@@ -64,7 +65,7 @@ function Navbar({ isLoggedIn, onLogout, theme, onToggleTheme, activeUser }) {
           {activeUser ? (
             <div className="navbar__user">
               <img
-                src={activeUser.profileImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(activeUser.displayName || 'User')}`}
+                src={getProfileImageUrl(activeUser.profileImage) || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(activeUser.displayName || 'User')}`}
                 alt="Profile Avatar"
                 className="navbar__avatar"
                 onError={(e) => {
@@ -117,7 +118,7 @@ function Navbar({ isLoggedIn, onLogout, theme, onToggleTheme, activeUser }) {
               {activeUser ? (
                 <div className="navbar__user mobile-user">
                   <img
-                    src={activeUser.profileImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(activeUser.displayName || 'User')}`}
+                    src={getProfileImageUrl(activeUser.profileImage) || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(activeUser.displayName || 'User')}`}
                     alt="Profile Avatar"
                     className="navbar__avatar"
                     onError={(e) => {

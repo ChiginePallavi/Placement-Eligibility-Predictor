@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { getMe } from '../../services/api'
+import { getMe, getProfileImageUrl } from '../../services/api'
 import '../../styles/Register.css'
 
 const AUTH_STORAGE_KEY = 'placement-auth-user'
@@ -100,7 +100,7 @@ function RegisteredDetails() {
                 <td>
                   <div className="profile-preview">
                     <img
-                      src={userData.profileImage || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(userData.fullName || userData.email || 'User')}`}
+                      src={getProfileImageUrl(userData.profileImage) || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(userData.fullName || userData.email || 'User')}`}
                       alt="Profile Avatar"
                     />
                   </div>

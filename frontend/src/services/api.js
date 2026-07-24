@@ -506,3 +506,15 @@ export const updateProfile = async (payload) => {
     return { success: true, user: updated };
   }
 };
+
+export const getProfileImageUrl = (imagePath) => {
+  if (!imagePath) return '';
+  if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
+    return imagePath;
+  }
+  
+  const baseUrl = getApiBaseUrl();
+  const hostUrl = baseUrl.endsWith('/api') ? baseUrl.slice(0, -4) : baseUrl;
+  const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+  return `${hostUrl}${cleanPath}`;
+};
