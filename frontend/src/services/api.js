@@ -509,7 +509,7 @@ export const updateProfile = async (payload) => {
 
 export const getProfileImageUrl = (imagePath) => {
   if (!imagePath) return '';
-  if (imagePath.startsWith('http') || imagePath.startsWith('data:')) {
+  if (imagePath.startsWith('http') || imagePath.startsWith('data:') || imagePath.startsWith('blob:')) {
     return imagePath;
   }
   
